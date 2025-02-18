@@ -26,4 +26,5 @@ dependencies:
     version: ~> 1.0.0
   helm:
     github: cnf-testsuite/helm
-    version: ~> 1.0.0
+    branch: rl_logging_and_minor_refactors
+    # version: ~> 1.0.0
