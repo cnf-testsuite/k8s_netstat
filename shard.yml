@@ -16,14 +16,17 @@ targets:
 dependencies:
   kubectl_client:
     github: cnf-testsuite/kubectl_client
-    version: ~> 1.0.0
+    branch: rlal-refactor-k8sclient-module
+    # version: ~> 1.0.0
   kernel_introspection:
     github: cnf-testsuite/kernel_introspection
     version: ~> 0.1.0
   cluster_tools:
     # path: ../cluster_tools
     github: cnf-testsuite/cluster_tools
-    version: ~> 1.0.0
+    branch: rlal_change_kubectl_shard_ver
+    # version: ~> 1.0.0
   helm:
     github: cnf-testsuite/helm
-    version: ~> 1.0.0
+    branch: rlal_change_kubectl_shard_ver
+    # version: ~> 1.0.0
