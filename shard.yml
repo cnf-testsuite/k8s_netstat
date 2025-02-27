@@ -26,4 +26,4 @@ dependencies:
     version: ~> 1.0.0
   helm:
     github: cnf-testsuite/helm
-    version: ~> 1.0.0
+    version: ~> 1.0.4
