@@ -11,7 +11,7 @@ module Netstat
 
       db_pod_ips = self.get_pods_ips(db_pods)
       Log.info { "DB Pods ips #{db_pod_ips}" }
-      db_pod_ips 
+      db_pod_ips
     end
 
     def self.get_all_non_db_service_pod_ips
@@ -107,6 +107,14 @@ module Netstat
       Log.info { "get_pod_network_info_from_node_via_container_id: node_name: #{node_name} container_id: #{container_id}" }
 
       inspect = ClusterTools.exec_by_node("crictl inspect #{container_id}", node_name)
+      if inspect.nil?
+        return [] of NamedTuple(proto: String,
+          recv: String,
+          send: String,
+          local_address: String,
+          foreign_address: String,
+          state: String)
+      end
 
       pid = JSON.parse(inspect["output"]).dig("info", "pid")
       Log.info { "Container PID: #{pid}" }
@@ -115,6 +123,9 @@ module Netstat
       parsed_netstat = (1..30).map {
         sleep 10
         netstat = ClusterTools.exec_by_node("nsenter -t #{pid} -n netstat -n", node_name)
+        if netstat.nil?
+          next
+        end
         Log.info { "Container Netstat: #{netstat}" }
         Netstat.parse(netstat["output"])
       }.flatten.compact
